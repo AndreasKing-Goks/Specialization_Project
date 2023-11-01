@@ -103,13 +103,11 @@ Param.Fc_o = (Crb_o + Ca_o) * V_t;            % Total Coriolis Force Matrix
 % buoyancy center to the origin frame.
 
 % Drag Coefficient for sphere
-Param.Re = V_t(1:3) * Param.rho_fluid * Param.D / Param.mu_fluid;
+Re = V_t(1:3) * Param.rho_fluid * Param.D / Param.mu_fluid;
 
-Cd11 = sphere_CD(Param.Re(1));
-Cd22 = sphere_CD(Param.Re(2));
-Cd33 = sphere_CD(Param.Re(3));
-
-Param.Cd = [Cd11; Cd22; Cd33];
+Cd11 = sphere_CD(Re(1));
+Cd22 = sphere_CD(Re(2));
+Cd33 = sphere_CD(Re(3));
 
 % Projected Surface Area
 Asp = pi * Param.D^2;        % Stands for "Projected Area of the Surface"
