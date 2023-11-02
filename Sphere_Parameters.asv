@@ -52,7 +52,7 @@ Param.m_cavity = Param.rho_cavity * Param.V_cavity;  % kg
 Param.m = Param.m_foam + Param.m_metal + Param.m_cavity;    % kg
 Param.mb = Param.rho_fluid * Param.V;                       % kg
 Param.I = 2/5 * Param.m * Param.R^2;                        % Moment inertia, kg.m2
-Param.ma = -Param.rho_fluid * 2/3 * pi * Param.R^3;         % Added mass, kg
+Param.ma = -Param.rho_fluid * 2/3 * pi * Param.R^;         % Added mass, kg
 
 Param.W = Param.m * Param.g;                    % N
 Param.B = Param.mb * Param.g;                   % Fully submerged, N

@@ -85,7 +85,7 @@ Ca = -Param.ma * [0 0 0 0 w -v;
                   0 0 0 v -u 0;
                   0 w -v 0 0 0;
                   -w 0 u 0 0 0;
-                  v -u 0 0 0 0];        % Added mass Coriolis Force Matrix, at Center of Buoyancyra
+                  v -u 0 0 0 0];        % Added mass Coriolis Force Matrix, at Center of Buoyancy
 Ca_o = Transform(Ca, Param.rb_o);
 
 Param.Fc_o = (Crb_o + Ca_o) * V_t;            % Total Coriolis Force Matrix
