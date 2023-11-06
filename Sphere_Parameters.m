@@ -69,7 +69,7 @@ Param.ro = [Param.xo; Param.yo; Param.zo];
 % Foam
 chord_f = 2*sqrt(Param.foam_height*(2*Param.R-Param.foam_height));
 gamma_f = 2*asin(chord_f/(2*Param.R));
-num_foam = 4*Param.R*(sin(gamma_f/2));
+num_foam = 4*Param.R*(sin(gamma_f/2))^3;
 denum_foam = 3*(gamma_f - sin(gamma_f));
 Param.centroid_foam = num_foam / denum_foam;
 
@@ -78,9 +78,9 @@ Param.centroid_foam = num_foam / denum_foam;
 % Metal
 chord_m = 2*sqrt(Param.metal_height*(2*Param.R-Param.metal_height));
 gamma_m = 2*asin(chord_m/(2*Param.R));
-num_metal = 4*Param.R*(sin(gamma_m/2));
+num_metal = 4*Param.R*(sin(gamma_m/2))^3;
 denum_metal = 3*(gamma_m - sin(gamma_m));
-Param.centroid_metal = num_metal / denum_metal;
+Param.centroid_metal = -num_metal / denum_metal;
 
 %Param.centroid_metal = -((((Param.R^4)/2 - (Param.R^2 * Param.c_b_height^2)/2) - ((Param.R^4)/4 - (Param.c_b_height^4)/4))/Param.V_foam + Param.c_b_height);
 

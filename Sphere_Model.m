@@ -62,7 +62,8 @@ V_t = [V_ ; W_];    % 6DOF Velocity
 % Fb = [Fb_F; Fb_M];
 
 %% Restoring Forces
-% Described in Body Frame, at Center of Gravity
+% Described in Body Frame, at Center of Gravity. ALREADY FOR THE LEFT HAND
+% SIDE
 Param.Fr_o = [(Param.W - Param.B)*sin(theta);
       -(Param.W - Param.B)*cos(theta)*sin(phi);
       -(Param.W - Param.B)*cos(theta)*cos(phi);
@@ -71,24 +72,26 @@ Param.Fr_o = [(Param.W - Param.B)*sin(theta);
       -(Param.rg(1)*Param.W - Param.rb(1)*Param.B)*cos(theta)*sin(phi) - (Param.rg(2)*Param.W - Param.rb(2)*Param.B)*sin(theta)];
 
 %% Coriolis Forces
-% Described in Body Frame (specifically for sphere)
-Crb = [0 -Param.m*r Param.m*q Param.m*Param.zg*r 0 0;
+% Described in Body Frame (specifically for sphere). ALREADY FOR THE LEFT
+% HAND SDE
+Param.Crb = [0 -Param.m*r Param.m*q Param.m*Param.zg*r 0 0;
        Param.m*r 0 -Param.m*p 0 Param.m*Param.zg*r 0;
        -Param.m*q Param.m*p 0 -Param.m*Param.zg*p -Param.m*Param.zg*q 0;
        -Param.m*Param.zg*r 0 Param.m*Param.zg*p 0 Param.I*r -Param.I*q;
        0 -Param.m*Param.zg*r Param.m*Param.zg*q -Param.I*r 0 Param.I*p;
        0 0 0 Param.I*q -Param.I*p 0];  % Rigid Body Coriolis Force Matrix, at Center of Gravity
-Crb_o = Transform(Crb, Param.rg_o);
+Param.Crb_o = Transform(Param.Crb, Param.rg_o);
 
-Ca = -Param.ma * [0 0 0 0 w -v;
+Param.Ca = -Param.ma * [0 0 0 0 w -v;
                   0 0 0 -w 0 u;
                   0 0 0 v -u 0;
                   0 w -v 0 0 0;
                   -w 0 u 0 0 0;
                   v -u 0 0 0 0];        % Added mass Coriolis Force Matrix, at Center of Buoyancy
-Ca_o = Transform(Ca, Param.rb_o);
+Param.Ca_o = Transform(Param.Ca, Param.rb_o);
 
-Param.Fc_o = (Crb_o + Ca_o) * V_t;            % Total Coriolis Force Matrix
+Param.Fc_o = (Param.Crb_o + Param.Ca_o) * V_t;            % Total Coriolis Force Matrix
+% Param.Fc_0 = zeros(6,1);
 
 %% Damping Forces
 % Described in Body frame, at Center of Buoyancy
@@ -100,7 +103,7 @@ Param.Fc_o = (Crb_o + Ca_o) * V_t;            % Total Coriolis Force Matrix
 % V_buoyancy = H(r_buoyancy_sensor) * V_sensor
 %
 % Compute the drag force, then transform the drag force matrix from
-% buoyancy center to the origin frame.
+% buoyancy center to the origin frame. FOR THE LEFT HAND SIDE
 
 % Drag Coefficient for sphere
 Re = V_t(1:3) * Param.rho_fluid * Param.D / Param.mu_fluid;
@@ -127,7 +130,6 @@ Param.Fd_o = Transform(Kd, Param.rb_o) * (V_t .* abs(V_t));
 %% External Forces (Weight + Buoyancy)
 Param.Ft_o = Ex_Force;
 
-%% Acceleration Computation
-Acc_G = (Param.MT) \ (Param.Ft_o + Param.Fc_o + Param.Fd_o + Param.Fr_o);
-
+%% Acceleration Computation 
+Acc_G = (Param.MT) \ (Param.Ft_o + (Param.Fc_o + Param.Fd_o + Param.Fr_o));
 end

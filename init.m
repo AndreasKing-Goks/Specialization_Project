@@ -28,8 +28,10 @@ Velo_B = Param.IC_Velo;
 Acc_G = Sphere_Model(Ex_Force, Pos_N, Velo_B)
 
 %% HELP READING Acceleration result
-% Postive acceleration means Positively Buoyant
-% Negative acceleration means Negatively Buoyant
+% Forces defined in NED at first. then transformed to the body coordinate
+% Thus, positive sign means downwards
+% Postive acceleration means Negatively Buoyant
+% Negative acceleration means Positively Buoyant
 
 %% Check Status
 % f_h = Param.foam_height
