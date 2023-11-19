@@ -1,0 +1,15 @@
+clear
+clc
+
+
+% Starting Point
+pf = 0.3;
+pm = 0.3;
+
+X = [pf;pm];
+
+% Declare function arguments
+funargs = [];
+
+% Declare derivative function arguments
+dfunargs

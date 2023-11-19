@@ -1,0 +1,23 @@
+function [grad] = complex_step(X, dfunargs)
+    % Unpack derivative arugments
+    func, funargs = dfunargs;
+
+    % Step size
+    h = 1e-10;
+
+    % Number of X elements
+    n = numel(X);
+
+    % Gradient memo
+    grad = zeros(size(X));
+    X_complex = X;
+    
+    for i = 1:n
+        X_complex(i) = X_complex(i) + 1i * epsilon;
+        if ~isnan(funargs)
+            grad(i) = imag(func(X_complex, funargs)) / h;
+        else
+            grad(i) = imag(func(X_complex)) / h;
+        end
+    end
+end

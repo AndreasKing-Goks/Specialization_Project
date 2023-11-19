@@ -9,7 +9,7 @@ global Param
 %                                                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Initial Speed and Position in NED Frame
-Param.IC_Pos = [0; 0; -10; 0; 0; 0];
+Param.IC_Pos = [0; 0; 10; 0; 0; 0];
 Param.IC_Velo = [0; 0; 0; 0; 0; 0];
 
 %% General Parameters
@@ -71,7 +71,11 @@ chord_f = 2*sqrt(Param.foam_height*(2*Param.R-Param.foam_height));
 gamma_f = 2*asin(chord_f/(2*Param.R));
 num_foam = 4*Param.R*(sin(gamma_f/2))^3;
 denum_foam = 3*(gamma_f - sin(gamma_f));
-Param.centroid_foam = num_foam / denum_foam;
+if Param.foam_height ~= 0
+    Param.centroid_foam = num_foam / denum_foam;
+else
+    Param.centroid_foam = 0;
+end
 
 %Param.centroid_foam = ((((Param.R^4)/2 - (Param.R^2 * Param.c_t_height^2)/2) - ((Param.R^4)/4 - (Param.c_t_height^4)/4))/Param.V_foam + Param.c_t_height);
 
@@ -80,7 +84,11 @@ chord_m = 2*sqrt(Param.metal_height*(2*Param.R-Param.metal_height));
 gamma_m = 2*asin(chord_m/(2*Param.R));
 num_metal = 4*Param.R*(sin(gamma_m/2))^3;
 denum_metal = 3*(gamma_m - sin(gamma_m));
-Param.centroid_metal = -num_metal / denum_metal;
+if Param.metal_height ~= 0
+    Param.centroid_metal = -num_metal / denum_metal;
+else
+    Param.centroid_metal = 0;
+end
 
 %Param.centroid_metal = -((((Param.R^4)/2 - (Param.R^2 * Param.c_b_height^2)/2) - ((Param.R^4)/4 - (Param.c_b_height^4)/4))/Param.V_foam + Param.c_b_height);
 

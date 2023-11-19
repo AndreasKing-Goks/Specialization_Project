@@ -8,9 +8,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear
 clc
+%% Add Path
+% Current dir
+currentDir = fileparts(mfilename('fullpath'));
+
+% Add the 'Util' path
+utilPath = fullfile(currentDir, 'Util');
+addpath(utilPath);
+
+% Add 'Save_and_Plot' path
+addpath(fullfile(currentDir, 'Save_and_Plot'));
+
 %% Initialize Workspace
-percent_foam = 0.6;
-percent_metal = 0.15;
+percent_foam = 0.25 ;
+percent_metal = 0.25;
 Param = Sphere_Parameters(percent_foam, percent_metal);
 
 %% Input Force in Body Frame
@@ -28,7 +39,7 @@ Velo_B = Param.IC_Velo;
 Acc_G = Sphere_Model(Ex_Force, Pos_N, Velo_B)
 
 %% HELP READING Acceleration result
-% Forces defined in NED at first. then transformed to the body coordinate
+% Forces defined in NED at first, then transformed to the body coordinate
 % Thus, positive sign means downwards
 % Postive acceleration means Negatively Buoyant
 % Negative acceleration means Positively Buoyant

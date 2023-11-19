@@ -64,7 +64,7 @@ V_t = [V_ ; W_];    % 6DOF Velocity
 %% Restoring Forces
 % Described in Body Frame, at Center of Gravity. ALREADY FOR THE LEFT HAND
 % SIDE
-Param.Fr_o = [(Param.W - Param.B)*sin(theta);
+Param.Fr_o = -[(Param.W - Param.B)*sin(theta);
       -(Param.W - Param.B)*cos(theta)*sin(phi);
       -(Param.W - Param.B)*cos(theta)*cos(phi);
       -(Param.rg(2)*Param.W - Param.rb(2)*Param.B)*cos(theta)*cos(phi) + (Param.rg(3)*Param.W - Param.rb(3)*Param.B)*cos(theta)*sin(phi);
@@ -106,7 +106,7 @@ Param.Fc_o = (Param.Crb_o + Param.Ca_o) * V_t;            % Total Coriolis Force
 % buoyancy center to the origin frame. FOR THE LEFT HAND SIDE
 
 % Drag Coefficient for sphere
-Re = V_t(1:3) * Param.rho_fluid * Param.D / Param.mu_fluid;
+Re = abs(V_t(1:3)) * Param.rho_fluid * Param.D / Param.mu_fluid;
 
 Cd11 = sphere_CD(Re(1));
 Cd22 = sphere_CD(Re(2));
@@ -125,7 +125,7 @@ K66 = 1/64 * Param.rho_fluid * Param.D^5 * Cd33;
 
 Kd = -diag([K11 K22 K33 K44 K55 K66]);
 
-Param.Fd_o = Transform(Kd, Param.rb_o) * (V_t .* abs(V_t));
+Param.Fd_o = Transform(Kd, Param.rb_o) * abs(V_t) .* V_t;
 
 %% External Forces (Weight + Buoyancy)
 Param.Ft_o = Ex_Force;
