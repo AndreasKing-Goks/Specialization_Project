@@ -1,15 +1,24 @@
 clear
 clc
 
-
 % Starting Point
-pf = 0.3;
-pm = 0.3;
+pf1 = 0.47;
+pm1 = 0.145;
 
-X = [pf;pm];
+h = 1e-2;
+
+pf_c1 = pf + 1i * h;
+pm_c1 = pm + 1i * h;
+
+X1 = [pf_c1;pm_c1]
 
 % Declare function arguments
 funargs = [];
 
 % Declare derivative function arguments
-dfunargs
+dfunargs.obj_func = @obj_func;
+dfunargs.funargs = funargs;
+
+% Compute gradient
+acc_z = acc_func(X);
+% grad_fd = complex_step(X, dfunargs)

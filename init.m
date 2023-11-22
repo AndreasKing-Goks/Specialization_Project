@@ -20,8 +20,8 @@ addpath(utilPath);
 addpath(fullfile(currentDir, 'Save_and_Plot'));
 
 %% Initialize Workspace
-percent_foam = 0.25 ;
-percent_metal = 0.25;
+percent_foam = 0.47 ;
+percent_metal = 0.145;
 Param = Sphere_Parameters(percent_foam, percent_metal);
 
 %% Input Force in Body Frame
