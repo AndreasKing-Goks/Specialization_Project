@@ -1,19 +1,22 @@
 function [Acc_G] = Sphere_Model(Ex_Force, Pos_N, Velo_B)
-global Param
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sphere_Model()                                                          %
-%                                                                         %              
+%                                                                         %
 % Compute the dynamics of the Sphere given the external forces, position, %
 % and velocity described at the body frame                                %
 %                                                                         %
 % Argument:                                                               %
-% Ex_Force  : External forces directed at sphere, described on Body Frame %  
-% Pos_N     : Position described at NED frame. Dim(3x1).                  %      
+% Ex_Force  : External forces directed at sphere, described on Body Frame %
+% Pos_N     : Position described at NED frame. Dim(3x1).                  %
 % Velo_B    : Velocity described at Body frame. Dim(3x1).                 %
+%                                                                         %
+% Output:                                                                 %
+% Acc_G     : Total acceleration of the Sphere Model                      %
 %                                                                         %
 % Created:      27.09.2023	Andreas Sitorus                               %
 %                                                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+global Param
 %% Position
 % Described in NED frame
 x = Pos_N(1,1);

@@ -1,13 +1,21 @@
 function Param = Sphere_Parameters(percent_foam, percent_metal)
-global Param
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sphere_Parameters()                                                     %
-%                                                                         %              
+%                                                                         %
 % Set initial conditions and fixed parameters for the sphere dynamics     %
+%                                                                         %
+% Arguments:                                                              %
+% percent_foam  : The ratio of floater height w.r.t. the Sphere Radius    %
+% percent_metal : The ratio of weight height w.r.t. the Sphere Radius     %
+%                                                                         %
+%                                                                         %
+% Output:                                                                 %
+% Param[struct] : Structure containing all fixed sphere model parameters  %
 %                                                                         %
 % Created:      27.09.2023	Andreas Sitorus                               %
 %                                                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+global Param
 %% Initial Speed and Position in NED Frame
 Param.IC_Pos = [0; 0; 10; 0; 0; 0];
 Param.IC_Velo = [0; 0; 0; 0; 0; 0];

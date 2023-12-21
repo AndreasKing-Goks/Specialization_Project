@@ -9,7 +9,7 @@ utilPath = fullfile(currentDir, 'Util');
 addpath(utilPath);
 
 % Add the 'Util' path
-optimPath = fullfile(currentDir, 'Optimization');
+optimPath = fullfile(currentDir, 'Gradient_Based');
 addpath(optimPath);
 
 % Starting Point

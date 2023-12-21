@@ -25,7 +25,21 @@ percent_metal = 0.145;
 Param = Sphere_Parameters(percent_foam, percent_metal);
 
 %% Input Force in Body Frame
-Input_F = [0; 0; 0];           % Forces in x-axis, y-axis, and z-axis (Body Frame)
+% Additional floater
+rho_df = 300;
+l_df = 0.05;
+w_df = 0.05;
+h_df = 0.05;
+V_df = l_df * w_df * h_df;
+g = 9.81;
+
+n = 1;
+Fr_0 = -rho_df * V_df * g;
+Fr_0_t = Fr_0 * n;
+
+
+
+Input_F = [0; 0; Fr_0_t];           % Forces in x-axis, y-axis, and z-axis (Body Frame)
 F_Coord = [0; 0; Param.R];      % External forces exerted on the top of the sphere, in line with the center of gravity
 
 Ex_Force = Command_Force(Input_F, F_Coord);

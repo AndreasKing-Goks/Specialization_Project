@@ -15,13 +15,32 @@ function [acc_z] = obj_func(X)
     utilPath = fullfile(currentDir, 'Util');
     addpath(utilPath);
 
-    % Add the 'Optimization' path
-    optimPath = fullfile(currentDir, 'Optimization');
-    addpath(optimPath);
-
     %% Initialize Workspace
+    % Retrieve point
     percent_foam = X(1);
     percent_metal = X(2);
+
+    % Constraint
+    max_pf = 0.9;
+    min_pf = 0.2;
+
+    max_pm = 0.5;
+    min_pm = 0.25;
+
+    % % Hard-coded constraint
+    % if percent_foam > max_pf
+    %     percent_foam = max_pf;
+    % elseif percent_foam < min_pf
+    %     percent_foam =min_pf;
+    % end
+    % 
+    % if percent_metal > max_pm
+    %     percent_metal = max_pm;
+    % elseif percent_metal < min_pm
+    %     percent_metal =min_pm;
+    % end
+    
+    % Initialize parameters
     Param = Sphere_Parameters(percent_foam, percent_metal);
 
     %% Input Force in Body Frame
@@ -37,5 +56,5 @@ function [acc_z] = obj_func(X)
 
     %% Sphere Dynamic Model [FOR CHECKING]
     acc = Sphere_Model(Ex_Force, Pos_N, Velo_B);
-    acc_z = acc(3);
+    acc_z = abs(acc(3));
 end

@@ -17,11 +17,17 @@ utilPath = fullfile(currentDir, 'Util');
 addpath(utilPath);
 
 %% Create meshgrid
-max_pf = 0.9;
-min_pf = 0.2;
+max_pf = 1.0;
+min_pf = 0.0;
 
-max_pm = 0.5;
-min_pm = 0.25;
+max_pm = 1.0;
+min_pm = 0.0;
+
+% max_pf = 0.9;
+% min_pf = 0.2;
+% 
+% max_pm = 0.5;
+% min_pm = 0.25;
 
 resolution = 0.01;
 
@@ -54,6 +60,7 @@ for row = 1:size(acc_z, 1)
 
         % Compute Acceleration
         acc = Sphere_Model(Ex_Force, Pos_N, Velo_B);
+        % acc_z(row,column) = acc(3);
         acc_z(row,column) = abs(acc(3));
     end
 end
@@ -68,11 +75,21 @@ end
 % end
 
 % Create a contour plot
-contour(pf, pm, acc_z', 500); 
+figure('Name','2D Contour Plot','NumberTitle','off');
+contour(pf, pm, acc_z', 200); 
 xlabel(['Floater height (as a percentage of radius R = ' num2str(Param.R) ') meters']);
 ylabel(['Weight height (as a percentage of radius R = ' num2str(Param.R) ') meters']);
-title('Acceleration Contour Plot');
-colorbar; % Add a colorbar to indicate the acceleration values
+title('|Z-acceleration| 2D Contour Plot');
+cb = colorbar; % Add a colorbar to indicate the acceleration values
+cb.Title.String = 'z-acceleration [m/s2]';
+
+% Create a 3D contour plot
+figure('Name','3D Contour Plot','NumberTitle','off');
+mesh(pf, pm, acc_z'); 
+xlabel(['Floater height (as a percentage of radius R = ' num2str(Param.R) ') meters']);
+ylabel(['Weight height (as a percentage of radius R = ' num2str(Param.R) ') meters']);
+zlabel('Total system acceleration');
+title('|Z-acceleration| 3D Contour Plot');
 
 %% HELP READING Acceleration result
 % Forces defined in NED at first, then transformed to the body coordinate
